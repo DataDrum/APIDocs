@@ -55,7 +55,6 @@ curl_close($curl);
 
 $json_response = json_decode($response, true);
 var_dump($json_response);
-?>
 ```
 
 ```python
@@ -90,13 +89,18 @@ fetch(request)
 
 ```json
 {
-  "status":200,
-  "error":null,
-  "headers":[],
-  "data":
-    [
-      {"date":"2018-06-01","us_inf_annual___cpi_SA":2.8477600436225}
-    ]
+	"status": 200,
+	"error": null,
+	"headers": [{
+		"name": "ua_inf_annual.cpi",
+		"english": "CPI Annual Inflation",
+		"units": "%",
+		"source": "State Statistics Service of Ukraine"
+	}],
+	"data": [{
+		"date": "2018-07-31",
+		"ua_inf_annual___cpi": 8.8996054362122
+	}]
 }
 ```
 
@@ -387,3 +391,14 @@ This endpoint retrieves a range of values between the two dates in the format `Y
 `GET https://api.datadrum.com/json/<INDICATOR_1>,<INDICATOR_2>,.../`
 
 This endpoint does everything above but for two indicators — and you can keep going with many more as long as they're separated by commas.
+
+# Response Formats
+
+`GET https://api.datadrum.com/<FORMAT>/...`
+
+You can get your output in any of the following formats by putting that value in the endpoint as above.
+
+`json`
+`csv`
+`xml`
+`xlsx`
