@@ -8,34 +8,40 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a href='#'>Get an API Key!</a>
+  - <a href='mailto:info@datadrum.com'>Contact</a>
+  - Back to <a href="/">Data Drum</a>
 
 includes:
   - errors
 
-search: true
+search: false
 ---
 
 # Introduction
 
-Welcome to the Data Drum API!
+Welcome to Data Drum's elegant and easy-to-use API!
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+It's really simple to get going. All you need is an API Key and the ability to send that key in the headers of a GET request to:
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+`https://api.datadrum.com/<...>`
 
-Let's get started! Scroll down below to see how you can access the United States annual inflation endpoint in various ways.
+You can get access to any indicator you like by changing that API endpoint. A list of indicators is available within the Data Drum platform.
 
-# United States Annual Inflation
+For example, Ukraine annual inflation:
 
-## Get All Values
+`ua_inf_annual.cpi`
+
+Let's get started! Scroll down to see how you can access any indicator and look to the right for examples in various languages which give you Ukraine's annual inflation rate.
+
+# Basic Data Retrieval
+
+## Latest Value
 
 ```php
-<?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA",
+  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/latest",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
@@ -56,17 +62,151 @@ var_dump($json_response);
 import requests
 import json
 
-req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA", headers={"token": your_token})
+req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi/latest", headers={"token": your_token})
 print(json.loads(req.text))
 ```
 
 ```shell
-curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA"
+curl "https://api.datadrum.com/json/ua_inf_annual.cpi/latest"
   -H "token: your_token"
 ```
 
 ```javascript
-var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA", {
+var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi/latest", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "status":200,
+  "error":null,
+  "headers":[],
+  "data":
+    [
+      {"date":"2018-06-01","us_inf_annual___cpi_SA":2.8477600436225}
+    ]
+}
+```
+
+`GET https://api.datadrum.com/json/<INDICATOR>/latest`
+
+This endpoint retrieves the latest value held by Data Drum for a particular indicator.
+
+## Earliest Value
+
+```php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/earliest",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi/earliest", headers={"token": your_token})
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/ua_inf_annual.cpi/earliest"
+  -H "token: your_token"
+```
+
+```javascript
+var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi/earliest", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "status":200,
+  "error":null,
+  "headers":[],
+  "data":
+    [
+      {"date":"1913-01-01","us_inf_annual___cpi_SA":0}
+    ]
+}
+```
+
+`GET https://api.datadrum.com/json/<INDICATOR>/earliest`
+
+This endpoint retrieves the earliest value held by Data Drum.
+
+## All Values
+
+```php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi", headers={"token": your_token})
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/ua_inf_annual.cpi"
+  -H "token: your_token"
+```
+
+```javascript
+var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi", {
 	method: 'GET',
 	headers: new Headers({
 		'token': your_token
@@ -96,19 +236,18 @@ fetch(request)
 }
 ```
 
-This endpoint retrieves all values available for U.S. annual inflation.
-
-### HTTP Request
-
 `GET https://api.datadrum.com/json/<INDICATOR>`
 
-## Get a Specific Value
+This endpoint retrieves all values held by Data Drum for a particular indicator, and is equivalent, as you'll see later, to:
+
+`GET https://api.datadrum.com/json/<INDICATOR>/earliest/latest`
+
+## Specific Date
 
 ```php
-<?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA/1967-09-01",
+  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
@@ -122,24 +261,23 @@ curl_close($curl);
 
 $json_response = json_decode($response, true);
 var_dump($json_response);
-?>
 ```
 
 ```python
 import requests
 import json
 
-req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA/1967-09-01", headers={"token": your_token})
+req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01", headers={"token": your_token})
 print(json.loads(req.text))
 ```
 
 ```shell
-curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA/1967-09-01"
+curl "https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01"
   -H "token: your_token"
 ```
 
 ```javascript
-var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA/1967-09-01", {
+var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01", {
 	method: 'GET',
 	headers: new Headers({
 		'token': your_token
@@ -167,20 +305,18 @@ fetch(request)
 }
 ```
 
-This endpoint retrieves a specific value.
-
-
-### HTTP Request
-
 `GET https://api.datadrum.com/json/<INDICATOR>/<DATE>`
 
-## Get the Earliest Value
+This endpoint retried the value on an indicator on a specific date, which must be in the format `YYYY-MM-DD` or `earliest` or `latest`, which return the earliest or latest value held by Data Drum respectively.
+
+If no value is held for the date you specify, the date with a value previous to the date you specify is chosen.
+
+## Range of Values
 
 ```php
-<?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA/earliest",
+  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/2008-08-01/2008-12-01",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
@@ -194,168 +330,23 @@ curl_close($curl);
 
 $json_response = json_decode($response, true);
 var_dump($json_response);
-?>
 ```
 
 ```python
 import requests
 import json
 
-req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA/earliest", headers={"token": your_token})
+req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi/2008-08-01/2008-12-01", headers={"token": your_token})
 print(json.loads(req.text))
 ```
 
 ```shell
-curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA/earliest"
+curl "https://api.datadrum.com/json/ua_inf_annual.cpi/2008-08-01/2008-12-01"
   -H "token: your_token"
 ```
 
 ```javascript
-var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA/earliest", {
-	method: 'GET',
-	headers: new Headers({
-		'token': your_token
-	})
-})
-
-fetch(request)
-	.then((response) => response.json())
-	.then(function(json_response){
-		console.log(json_response)
-	});
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "status":200,
-  "error":null,
-  "headers":[],
-  "data":
-    [
-      {"date":"1913-01-01","us_inf_annual___cpi_SA":0}
-    ]
-}
-```
-
-This endpoint retrieves the earliest value.
-
-
-### HTTP Request
-
-`GET https://api.datadrum.com/json/<INDICATOR>/earliest`
-
-## Get the Latest Value
-
-```php
-<?php
-$curl = curl_init();
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA/latest",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "token: ".your_token
-  ),
-));
-$response = curl_exec($curl);
-curl_close($curl);
-
-$json_response = json_decode($response, true);
-var_dump($json_response);
-?>
-```
-
-```python
-import requests
-import json
-
-req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA/latest", headers={"token": your_token})
-print(json.loads(req.text))
-```
-
-```shell
-curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA/latest"
-  -H "token: your_token"
-```
-
-```javascript
-var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA/latest", {
-	method: 'GET',
-	headers: new Headers({
-		'token': your_token
-	})
-})
-
-fetch(request)
-	.then((response) => response.json())
-	.then(function(json_response){
-		console.log(json_response)
-	});
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "status":200,
-  "error":null,
-  "headers":[],
-  "data":
-    [
-      {"date":"2018-06-01","us_inf_annual___cpi_SA":2.8477600436225}
-    ]
-}
-```
-
-This endpoint retrieves the latest value.
-
-
-### HTTP Request
-
-`GET https://api.datadrum.com/json/<INDICATOR>/latest`
-
-## Get the a Range of Values
-
-```php
-<?php
-$curl = curl_init();
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA/2008-08-01/2008-12-01",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "token: ".your_token
-  ),
-));
-$response = curl_exec($curl);
-curl_close($curl);
-
-$json_response = json_decode($response, true);
-var_dump($json_response);
-?>
-```
-
-```python
-import requests
-import json
-
-req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA/2008-08-01/2008-12-01", headers={"token": your_token})
-print(json.loads(req.text))
-```
-
-```shell
-curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA/2008-08-01/2008-12-01"
-  -H "token: your_token"
-```
-
-```javascript
-var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA/2008-08-01/2008-12-01", {
+var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi/2008-08-01/2008-12-01", {
 	method: 'GET',
 	headers: new Headers({
 		'token': your_token
@@ -387,9 +378,12 @@ fetch(request)
 }
 ```
 
-This endpoint retrieves a range of values.
-
-
-### HTTP Request
-
 `GET https://api.datadrum.com/json/<INDICATOR>/<DATE>/<DATE>`
+
+This endpoint retrieves a range of values between the two dates in the format `YYYY-MM-DD` or `earliest` or `latest`.
+
+# Multiple Indicators
+
+`GET https://api.datadrum.com/json/<INDICATOR_1>,<INDICATOR_2>,.../`
+
+This endpoint does everything above but for two indicators — and you can keep going with many more as long as they're separated by commas.
