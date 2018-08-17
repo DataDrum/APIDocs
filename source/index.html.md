@@ -39,6 +39,7 @@ Let's get started! Scroll down to see how you can access any indicator and look 
 ## Latest Value
 
 ```php
+<?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/latest",
@@ -55,6 +56,7 @@ curl_close($curl);
 
 $json_response = json_decode($response, true);
 var_dump($json_response);
+?>
 ```
 
 ```python
@@ -91,16 +93,17 @@ fetch(request)
 {
 	"status": 200,
 	"error": null,
-	"headers": [{
-		"name": "ua_inf_annual.cpi",
-		"english": "CPI Annual Inflation",
-		"units": "%",
-		"source": "State Statistics Service of Ukraine"
-	}],
-	"data": [{
-		"date": "2018-07-31",
-		"ua_inf_annual___cpi": 8.8996054362122
-	}]
+	"headers":
+    [{
+  		"name": "ua_inf_annual.cpi",
+  		"english": "CPI Annual Inflation",
+  		"units": "%",
+  		"source": "State Statistics Service of Ukraine"
+  	}],
+	"data":
+    [
+      {"date": "2018-07-31", "ua_inf_annual___cpi": 8.8996054362122}
+    ]
 }
 ```
 
@@ -111,6 +114,7 @@ This endpoint retrieves the latest value held by Data Drum for a particular indi
 ## Earliest Value
 
 ```php
+<?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/earliest",
@@ -127,6 +131,7 @@ curl_close($curl);
 
 $json_response = json_decode($response, true);
 var_dump($json_response);
+?>
 ```
 
 ```python
@@ -163,10 +168,16 @@ fetch(request)
 {
   "status":200,
   "error":null,
-  "headers":[],
+  "headers":
+    [{
+      "name":"ua_inf_annual.cpi",
+      "english":"CPI Annual Inflation",
+      "units":"%",
+      "source":"State Statistics Service of Ukraine"
+    }],
   "data":
     [
-      {"date":"1913-01-01","us_inf_annual___cpi_SA":0}
+      {"date":"2005-01-31","ua_inf_annual___cpi":0}
     ]
 }
 ```
@@ -178,6 +189,7 @@ This endpoint retrieves the earliest value held by Data Drum.
 ## All Values
 
 ```php
+<?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi",
@@ -194,6 +206,7 @@ curl_close($curl);
 
 $json_response = json_decode($response, true);
 var_dump($json_response);
+?>
 ```
 
 ```python
@@ -227,16 +240,23 @@ fetch(request)
 > The above command returns JSON structured like this:
 
 ```json
-{"status": 200,
- "error": "None",
- "headers": [],
- "data":
-  [
-    {"date": "1913-01-01", "us_inf_annual___cpi_SA": 0},
-    {"date": "1913-02-01", "us_inf_annual___cpi_SA": 0},
-    {"date": "1913-03-01", "us_inf_annual___cpi_SA": 0},
-    {"date": "1913-04-01", "us_inf_annual___cpi_SA": 0}
-  ]
+{
+  "status":200,
+  "error":null,
+  "headers":
+    [{
+      "name":"ua_inf_annual.cpi",
+      "english":"CPI Annual Inflation",
+      "units":"%",
+      "source":"State Statistics Service of Ukraine"
+    }],
+  "data":
+    [
+      {"date":"2005-01-31","ua_inf_annual___cpi":0},
+      {"date":"2005-02-28","ua_inf_annual___cpi":0},
+      {"date":"2005-03-31","ua_inf_annual___cpi":0},
+      {"date":"2005-04-30","ua_inf_annual___cpi":0}
+    ]
 }
 ```
 
@@ -249,6 +269,7 @@ This endpoint retrieves all values held by Data Drum for a particular indicator,
 ## Specific Date
 
 ```php
+<?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01",
@@ -265,6 +286,7 @@ curl_close($curl);
 
 $json_response = json_decode($response, true);
 var_dump($json_response);
+?>
 ```
 
 ```python
@@ -301,10 +323,16 @@ fetch(request)
 {
   "status":200,
   "error":null,
-  "headers":[],
+  "headers":
+    [{
+      "name":"ua_inf_annual.cpi",
+      "english":"CPI Annual Inflation",
+      "units":"%",
+      "source":"State Statistics Service of Ukraine"
+    }],
   "data":
     [
-      {"date":"1967-09-01","us_inf_annual___cpi_SA":2.9096477794793}
+      {"date":"0000-00-00","ua_inf_annual___cpi":0}
     ]
 }
 ```
@@ -318,6 +346,7 @@ If no value is held for the date you specify, the date with a value previous to 
 ## Range of Values
 
 ```php
+<?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/2008-08-01/2008-12-01",
@@ -334,6 +363,7 @@ curl_close($curl);
 
 $json_response = json_decode($response, true);
 var_dump($json_response);
+?>
 ```
 
 ```python
@@ -370,14 +400,19 @@ fetch(request)
 {
   "status":200,
   "error":null,
-  "headers":[],
+  "headers":
+    [{
+      "name":"ua_inf_annual.cpi",
+      "english":"CPI Annual Inflation",
+      "units":"%",
+      "source":"State Statistics Service of Ukraine"
+    }],
   "data":
     [
-      {"date":"2008-08-01","us_inf_annual___cpi_SA":5.3404815922699},
-      {"date":"2008-09-01","us_inf_annual___cpi_SA":5.398065171645},
-      {"date":"2008-10-01","us_inf_annual___cpi_SA":4.0508854119215},
-      {"date":"2008-11-01","us_inf_annual___cpi_SA":1.8944500215115},
-      {"date":"2008-12-01","us_inf_annual___cpi_SA":0.26750903554455}
+      {"date":"2008-08-31","ua_inf_annual___cpi":25.986842105263},
+      {"date":"2008-09-30","ua_inf_annual___cpi":24.63768115942},
+      {"date":"2008-10-31","ua_inf_annual___cpi":23.317683881064},
+      {"date":"2008-11-30","ua_inf_annual___cpi":22.17125382263}
     ]
 }
 ```
@@ -387,6 +422,86 @@ fetch(request)
 This endpoint retrieves a range of values between the two dates in the format `YYYY-MM-DD` or `earliest` or `latest`.
 
 # Multiple Indicators
+
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi,mx_cpi_headline_annual.val/2008-08-01/2008-12-01",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi,mx_cpi_headline_annual.val/2008-08-01/2008-12-01", headers={"token": your_token})
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/ua_inf_annual.cpi,mx_cpi_headline_annual.val/2008-08-01/2008-12-01"
+  -H "token: your_token"
+```
+
+```javascript
+var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi,mx_cpi_headline_annual.val/2008-08-01/2008-12-01", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "status":200,
+  "error":null,
+  "headers":
+    [
+      {
+        "name":"mx_cpi_headline_annual.val",
+        "english":"CPI Monthly Inflation (Headline)",
+        "units":"%",
+        "source":"Data Drum calculations based on Bank of Mexico"
+      },
+      {
+        "name":"ua_inf_annual.cpi",
+        "english":"CPI Annual Inflation",
+        "units":"%",
+        "source":"State Statistics Service of Ukraine"
+      }
+    ],
+  "data":
+    [
+      {"date":"2008-08-31","ua_inf_annual___cpi":25.986842105263,"mx_cpi_headline_annual___val":5.5729370355884},
+      {"date":"2008-09-30","ua_inf_annual___cpi":24.63768115942,"mx_cpi_headline_annual___val":5.4734050723982},
+      {"date":"2008-10-31","ua_inf_annual___cpi":23.317683881064,"mx_cpi_headline_annual___val":5.7799325124224},
+      {"date":"2008-11-30","ua_inf_annual___cpi":22.17125382263,"mx_cpi_headline_annual___val":6.2328564459756}
+    ]
+}
+```
 
 `GET https://api.datadrum.com/json/<INDICATOR_1>,<INDICATOR_2>,.../`
 
