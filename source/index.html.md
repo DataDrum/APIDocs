@@ -8,9 +8,9 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
 
 toc_footers:
-  - <a href='#'>Get an API Key!</a>
-  - <a href='mailto:info@datadrum.com'>Contact</a>
-  - Back to <a href="/">Data Drum</a>
+  - <a href='/api/'>Get an API Key!</a>
+  - <a href='mailto:info@datadrum.com'>Support</a>
+  - <a href="/">Back to Data Drum</a>
 
 includes:
   - errors
