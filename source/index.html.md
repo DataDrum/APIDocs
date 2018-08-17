@@ -8,7 +8,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
 
 toc_footers:
-  - <a href='/api/'>Get an API Key!</a>
   - <a href='mailto:info@datadrum.com'>Support</a>
   - <a href="/">Back to Data Drum</a>
 
@@ -20,19 +19,13 @@ search: false
 
 # Introduction
 
-Welcome to Data Drum's elegant and easy-to-use API!
-
-It's really simple to get going. All you need is an API Key and the ability to send that key in the headers of a GET request to:
+Welcome to Data Drum's elegant and easy-to-use API. It's really easy to get going. All you need is an API Key and the ability to send that key in the headers of a GET request to:
 
 `https://api.datadrum.com/...`
 
-You can get access to any indicator you like by changing that API endpoint. A list of indicators is available within the Data Drum platform.
+You can get access to any data you like by following the instructions below.
 
-For example, Ukraine annual inflation:
-
-`ua_inf_annual.cpi`
-
-Let's get started! Scroll down to see how you can access any indicator and look to the right for examples in various languages which give you Ukraine's annual inflation rate.
+A list of indicators is available within the Data Drum platform. The examples to the right will be getting data on Ukraine annual inflation, using the indicator identifier `ua_inf_annual.cpi`.
 
 # Basic Data Retrieval
 
@@ -98,7 +91,7 @@ fetch(request)
   		"name": "ua_inf_annual.cpi",
   		"english": "CPI Annual Inflation",
   		"units": "%",
-  		"source": "State Statistics Service of Ukraine"
+  		"source": "Data Drum calculations based on State Statistics Service of Ukraine"
   	}],
 	"data":
     [
@@ -173,11 +166,11 @@ fetch(request)
       "name":"ua_inf_annual.cpi",
       "english":"CPI Annual Inflation",
       "units":"%",
-      "source":"State Statistics Service of Ukraine"
+      "source":"Data Drum calculations based on State Statistics Service of Ukraine"
     }],
   "data":
     [
-      {"date":"2005-01-31","ua_inf_annual___cpi":0}
+      {"date":"2006-01-31","ua_inf_annual___cpi":9.7251585623679}
     ]
 }
 ```
@@ -248,14 +241,14 @@ fetch(request)
       "name":"ua_inf_annual.cpi",
       "english":"CPI Annual Inflation",
       "units":"%",
-      "source":"State Statistics Service of Ukraine"
+      "source":"Data Drum calculations based on State Statistics Service of Ukraine"
     }],
   "data":
     [
-      {"date":"2005-01-31","ua_inf_annual___cpi":0},
-      {"date":"2005-02-28","ua_inf_annual___cpi":0},
-      {"date":"2005-03-31","ua_inf_annual___cpi":0},
-      {"date":"2005-04-30","ua_inf_annual___cpi":0}
+      {"date":"2006-01-31","ua_inf_annual___cpi":9.7251585623679},
+      {"date":"2006-02-28","ua_inf_annual___cpi":10.691823899371},
+      {"date":"2006-03-31","ua_inf_annual___cpi":8.659793814433},
+      {"date":"2006-04-30","ua_inf_annual___cpi":7.5819672131148}
     ]
 }
 ```
@@ -272,7 +265,7 @@ This endpoint retrieves all values held by Data Drum for a particular indicator,
 <?php
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01",
+  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi/2015-04-30",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
@@ -293,17 +286,17 @@ var_dump($json_response);
 import requests
 import json
 
-req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01", headers={"token": your_token})
+req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi/2015-04-30", headers={"token": your_token})
 print(json.loads(req.text))
 ```
 
 ```shell
-curl "https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01"
+curl "https://api.datadrum.com/json/ua_inf_annual.cpi/2015-04-30"
   -H "token: your_token"
 ```
 
 ```javascript
-var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi/1967-09-01", {
+var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi/2015-04-30", {
 	method: 'GET',
 	headers: new Headers({
 		'token': your_token
@@ -328,11 +321,11 @@ fetch(request)
       "name":"ua_inf_annual.cpi",
       "english":"CPI Annual Inflation",
       "units":"%",
-      "source":"State Statistics Service of Ukraine"
+      "source":"Data Drum calculations based on State Statistics Service of Ukraine"
     }],
   "data":
     [
-      {"date":"0000-00-00","ua_inf_annual___cpi":0}
+      {"date":"2015-04-30","ua_inf_annual___cpi":60.931899641577}
     ]
 }
 ```
@@ -405,7 +398,7 @@ fetch(request)
       "name":"ua_inf_annual.cpi",
       "english":"CPI Annual Inflation",
       "units":"%",
-      "source":"State Statistics Service of Ukraine"
+      "source":"Data Drum calculations based on State Statistics Service of Ukraine"
     }],
   "data":
     [
@@ -490,7 +483,7 @@ fetch(request)
         "name":"ua_inf_annual.cpi",
         "english":"CPI Annual Inflation",
         "units":"%",
-        "source":"State Statistics Service of Ukraine"
+        "source":"Data Drum calculations based on State Statistics Service of Ukraine"
       }
     ],
   "data":
@@ -505,7 +498,9 @@ fetch(request)
 
 `GET https://api.datadrum.com/json/<INDICATOR_1>,<INDICATOR_2>,.../`
 
-This endpoint does everything above but for two indicators — and you can keep going with many more as long as they're separated by commas.
+This endpoint does everything above but for two (or more) indicators. You can keep going with many more as long as they're separated by commas.
+
+The example on the right compared Ukraine's annual inflation with that in Mexico with the indicator `mx_cpi_headline_annual.val`
 
 # Response Formats
 
