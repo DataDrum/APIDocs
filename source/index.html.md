@@ -104,6 +104,8 @@ fetch(request)
 
 This endpoint retrieves the latest value held by Data Drum for a particular indicator.
 
+Ukraine's annual inflation figure was just shy of 9% when this documentation was written in August 2018.
+
 ## Earliest Value
 
 ```php
@@ -178,6 +180,8 @@ fetch(request)
 `GET https://api.datadrum.com/json/<INDICATOR>/earliest`
 
 This endpoint retrieves the earliest value held by Data Drum.
+
+The earliest data we hold for Ukraine annual inflation is from January 2006 when the figure was 9.7%
 
 ## All Values
 
@@ -336,6 +340,8 @@ This endpoint retried the value on an indicator on a specific date, which must b
 
 If no value is held for the date you specify, the date with a value previous to the date you specify is chosen.
 
+Annual inflation in Ukraine was at more than 60% in April 2015.
+
 ## Range of Values
 
 ```php
@@ -413,6 +419,8 @@ fetch(request)
 `GET https://api.datadrum.com/json/<INDICATOR>/<DATE>/<DATE>`
 
 This endpoint retrieves a range of values between the two dates in the format `YYYY-MM-DD` or `earliest` or `latest`.
+
+Annual inflation in Ukraine hovered around 23.5% in the last months of 2008.
 
 # Multiple Indicators
 
@@ -501,6 +509,8 @@ fetch(request)
 This endpoint does everything above but for two (or more) indicators. You can keep going with many more as long as they're separated by commas.
 
 The example on the right compared Ukraine's annual inflation with that in Mexico with the indicator `mx_cpi_headline_annual.val`
+
+Annual inflation in Mexico was around five times lower than that in Ukraine towards the end of 2008.
 
 # Response Formats
 
