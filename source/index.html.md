@@ -97,7 +97,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-> The above command returns JSON structured like this:
+> The above code would return the following JSON output:
 
 ```json
 {
@@ -190,7 +190,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-> The above command returns JSON structured like this:
+> The above code would return the following JSON output:
 
 ```json
 {
@@ -283,7 +283,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-> The above command returns JSON structured like this:
+> The above code would return the following JSON output:
 
 ```json
 {
@@ -379,7 +379,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-> The above command returns JSON structured like this:
+> The above code would return the following JSON output:
 
 ```json
 {
@@ -474,7 +474,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-> The above command returns JSON structured like this:
+> The above code would return the following JSON output:
 
 ```json
 {
@@ -570,7 +570,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-> The above command returns JSON structured like this:
+> The above code would return the following JSON output:
 
 ```json
 {
