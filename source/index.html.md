@@ -28,6 +28,8 @@ You can get access to any data you like by following the instructions below.
 
 A list of indicators is available within the Data Drum platform. The examples to the right will be getting data on Ukraine annual inflation, using the indicator identifier `ua_inf_annual.cpi`.
 
+And output will be in JSON. You can easily change this to CSV (`csv`), XML (`xml`) or Excel (`xlsx`) by replacing `json` with one of those in the URL.
+
 # Basic Data Retrieval
 
 ## Latest Value
@@ -216,102 +218,6 @@ This endpoint retrieves the earliest value held by Data Drum.
 
 The earliest data we hold for Ukraine annual inflation is from January 2006 when the figure was 9.7%
 
-## All Values
-
-```php
-<?php
-$curl = curl_init();
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "token: ".your_token
-  ),
-));
-$response = curl_exec($curl);
-curl_close($curl);
-
-$json_response = json_decode($response, true);
-var_dump($json_response);
-?>
-```
-
-```python
-import requests
-import json
-
-req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi", headers={"token": your_token})
-print(json.loads(req.text))
-```
-
-```shell
-curl "https://api.datadrum.com/json/ua_inf_annual.cpi"
-  -H "token: your_token"
-```
-
-```javascript
-var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi", {
-	method: 'GET',
-	headers: new Headers({
-		'token': your_token
-	})
-})
-
-fetch(request)
-	.then((response) => response.json())
-	.then(function(json_response){
-		console.log(json_response)
-	});
-```
-
-```ruby
-require 'uri'
-require 'net/http'
-
-url = URI("https://api.datadrum.com/json/ua_inf_annual.cpi")
-
-http = Net::HTTP.new(url.host, url.port)
-http.use_ssl = true
-
-request = Net::HTTP::Get.new(url)
-request['token'] = your_token
-
-response = http.request(request)
-puts response.read_body
-```
-
-> The above code would return the following JSON output:
-
-```json
-{
-  "status":200,
-  "error":null,
-  "headers":
-    [{
-      "name":"ua_inf_annual.cpi",
-      "english":"CPI Annual Inflation",
-      "units":"%",
-      "source":"Data Drum calculations based on State Statistics Service of Ukraine"
-    }],
-  "data":
-    [
-      {"date":"2006-01-31","ua_inf_annual___cpi":9.7251585623679},
-      {"date":"2006-02-28","ua_inf_annual___cpi":10.691823899371},
-      {"date":"2006-03-31","ua_inf_annual___cpi":8.659793814433},
-      {"date":"2006-04-30","ua_inf_annual___cpi":7.5819672131148}
-    ]
-}
-```
-
-`GET https://api.datadrum.com/json/<INDICATOR>`
-
-This endpoint retrieves all values held by Data Drum for a particular indicator, and is equivalent, as you'll see later, to:
-
-`GET https://api.datadrum.com/json/<INDICATOR>/earliest/latest`
-
 ## Specific Date
 
 ```php
@@ -406,6 +312,103 @@ This endpoint retried the value on an indicator on a specific date, which must b
 If no value is held for the date you specify, the date with a value previous to the date you specify is chosen.
 
 Annual inflation in Ukraine was at more than 60% in April 2015.
+
+## All Values
+
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/ua_inf_annual.cpi",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/ua_inf_annual.cpi", headers={"token": your_token})
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/ua_inf_annual.cpi"
+  -H "token: your_token"
+```
+
+```javascript
+var request = new Request("https://api.datadrum.com/json/ua_inf_annual.cpi", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/ua_inf_annual.cpi")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
+```
+
+> The above code would return the following JSON output:
+
+```json
+{
+  "status":200,
+  "error":null,
+  "headers":
+    [{
+      "name":"ua_inf_annual.cpi",
+      "english":"CPI Annual Inflation",
+      "units":"%",
+      "source":"Data Drum calculations based on State Statistics Service of Ukraine"
+    }],
+  "data":
+    [
+      {"date":"2006-01-31","ua_inf_annual___cpi":9.7251585623679},
+      {"date":"2006-02-28","ua_inf_annual___cpi":10.691823899371},
+      {"date":"2006-03-31","ua_inf_annual___cpi":8.659793814433},
+      {"date":"2006-04-30","ua_inf_annual___cpi":7.5819672131148},
+      ...
+    ]
+}
+```
+
+`GET https://api.datadrum.com/json/<INDICATOR>`
+
+This endpoint retrieves all values held by Data Drum for a particular indicator, and is equivalent to:
+
+`GET https://api.datadrum.com/json/<INDICATOR>/earliest/latest`
 
 ## Range of Values
 
@@ -608,14 +611,3 @@ This endpoint does everything above but for two (or more) indicators. You can ke
 The example on the right compared Ukraine's annual inflation with that in Mexico with the indicator `mx_cpi_headline_annual.val`
 
 Annual inflation in Mexico was around five times lower than that in Ukraine towards the end of 2008.
-
-# Response Formats
-
-`GET https://api.datadrum.com/<FORMAT>/...`
-
-You can get your output in any of the following formats by putting that value in the endpoint as above.
-
-`json`
-`csv`
-`xml`
-`xlsx`
