@@ -1,9 +1,9 @@
 ---
-title: API Reference
+title: Data Drum API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
+  - php
   - python
   - javascript
 
@@ -19,221 +19,377 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Data Drum API!
 
 We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
-# Authentication
+Let's get started! Scroll down below to see how you can access the United States annual inflation endpoint in various ways.
 
-> To authorize, use this code:
+# United States Annual Inflation
 
-```ruby
-require 'kittn'
+## Get All Values
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
 ```
 
 ```python
-import kittn
+import requests
+import json
 
-api = kittn.authorize('meowmeowmeow')
+req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA", headers={"token": your_token})
+print(json.loads(req.text))
 ```
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA"
+  -H "token: your_token"
 ```
 
 ```javascript
-const kittn = require('kittn');
+var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
 
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+{"status": 200,
+ "error": "None",
+ "headers": [],
+ "data":
+  [
+    {"date": "1913-01-01", "us_inf_annual___cpi_SA": 0},
+    {"date": "1913-02-01", "us_inf_annual___cpi_SA": 0},
+    {"date": "1913-03-01", "us_inf_annual___cpi_SA": 0},
+    {"date": "1913-04-01", "us_inf_annual___cpi_SA": 0}
+  ]
+}
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all values available for U.S. annual inflation.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://api.datadrum.com/json/<INDICATOR>`
 
-### Query Parameters
+## Get a Specific Value
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA/1967-09-01",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
 ```
 
 ```python
-import kittn
+import requests
+import json
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA/1967-09-01", headers={"token": your_token})
+print(json.loads(req.text))
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA/1967-09-01"
+  -H "token: your_token"
 ```
 
 ```javascript
-const kittn = require('kittn');
+var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA/1967-09-01", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "status":200,
+  "error":null,
+  "headers":[],
+  "data":
+    [
+      {"date":"1967-09-01","us_inf_annual___cpi_SA":2.9096477794793}
+    ]
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a specific value.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://api.datadrum.com/json/<INDICATOR>/<DATE>`
 
-### URL Parameters
+## Get the Earliest Value
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA/earliest",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
 
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
 ```
 
 ```python
-import kittn
+import requests
+import json
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
+req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA/earliest", headers={"token": your_token})
+print(json.loads(req.text))
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
+curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA/earliest"
+  -H "token: your_token"
 ```
 
 ```javascript
-const kittn = require('kittn');
+var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA/earliest", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "status":200,
+  "error":null,
+  "headers":[],
+  "data":
+    [
+      {"date":"1913-01-01","us_inf_annual___cpi_SA":0}
+    ]
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint retrieves the earliest value.
+
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`GET https://api.datadrum.com/json/<INDICATOR>/earliest`
 
-### URL Parameters
+## Get the Latest Value
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA/latest",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
 
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA/latest", headers={"token": your_token})
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA/latest"
+  -H "token: your_token"
+```
+
+```javascript
+var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA/latest", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "status":200,
+  "error":null,
+  "headers":[],
+  "data":
+    [
+      {"date":"2018-06-01","us_inf_annual___cpi_SA":2.8477600436225}
+    ]
+}
+```
+
+This endpoint retrieves the latest value.
+
+
+### HTTP Request
+
+`GET https://api.datadrum.com/json/<INDICATOR>/latest`
+
+## Get the a Range of Values
+
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/us_inf_annual.cpi_SA/2008-08-01/2008-12-01",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/us_inf_annual.cpi_SA/2008-08-01/2008-12-01", headers={"token": your_token})
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/us_inf_annual.cpi_SA/2008-08-01/2008-12-01"
+  -H "token: your_token"
+```
+
+```javascript
+var request = new Request("https://api.datadrum.com/json/us_inf_annual.cpi_SA/2008-08-01/2008-12-01", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "status":200,
+  "error":null,
+  "headers":[],
+  "data":
+    [
+      {"date":"2008-08-01","us_inf_annual___cpi_SA":5.3404815922699},
+      {"date":"2008-09-01","us_inf_annual___cpi_SA":5.398065171645},
+      {"date":"2008-10-01","us_inf_annual___cpi_SA":4.0508854119215},
+      {"date":"2008-11-01","us_inf_annual___cpi_SA":1.8944500215115},
+      {"date":"2008-12-01","us_inf_annual___cpi_SA":0.26750903554455}
+    ]
+}
+```
+
+This endpoint retrieves a range of values.
+
+
+### HTTP Request
+
+`GET https://api.datadrum.com/json/<INDICATOR>/<DATE>/<DATE>`
