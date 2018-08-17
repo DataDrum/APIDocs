@@ -24,7 +24,7 @@ Welcome to Data Drum's elegant and easy-to-use API!
 
 It's really simple to get going. All you need is an API Key and the ability to send that key in the headers of a GET request to:
 
-`https://api.datadrum.com/<...>`
+`https://api.datadrum.com/...`
 
 You can get access to any indicator you like by changing that API endpoint. A list of indicators is available within the Data Drum platform.
 
