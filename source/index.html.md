@@ -6,6 +6,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - php
   - python
   - javascript
+  - ruby
 
 toc_footers:
   - <a href='mailto:info@datadrum.com'>Support</a>
@@ -78,6 +79,22 @@ fetch(request)
 	.then(function(json_response){
 		console.log(json_response)
 	});
+```
+
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/ua_inf_annual.cpi/latest")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
 ```
 
 > The above command returns JSON structured like this:
@@ -157,6 +174,22 @@ fetch(request)
 	});
 ```
 
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/ua_inf_annual.cpi/earliest")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -232,6 +265,22 @@ fetch(request)
 	.then(function(json_response){
 		console.log(json_response)
 	});
+```
+
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/ua_inf_annual.cpi")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
 ```
 
 > The above command returns JSON structured like this:
@@ -314,6 +363,22 @@ fetch(request)
 	});
 ```
 
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/ua_inf_annual.cpi/2015-04-30")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -391,6 +456,22 @@ fetch(request)
 	.then(function(json_response){
 		console.log(json_response)
 	});
+```
+
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/ua_inf_annual.cpi/2008-08-01/2008-12-01")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
 ```
 
 > The above command returns JSON structured like this:
@@ -471,6 +552,22 @@ fetch(request)
 	.then(function(json_response){
 		console.log(json_response)
 	});
+```
+
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/ua_inf_annual.cpi,mx_cpi_headline_annual.val/2008-08-01/2008-12-01")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
 ```
 
 > The above command returns JSON structured like this:
