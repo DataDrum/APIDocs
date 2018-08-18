@@ -26,7 +26,7 @@ Welcome to Data Drum's elegant and easy-to-use API. It's really easy to get goin
 
 You can get access to any data you like by following the instructions below.
 
-A list of indicators is available within the Data Drum platform. The examples to the right will be getting data on Ukraine annual inflation, using the indicator identifier `ua_inf_annual.cpi`.
+A list of indicators is available <a href="#available-indicators">through the API</a> (with no authentication required) or within the Data Drum platform itself. The examples to the right will be getting data on Ukraine annual inflation, using the indicator identifier `ua_inf_annual.cpi`.
 
 And output will be in JSON. You can easily change this to CSV (`csv`), XML (`xml`) or Excel (`xlsx`) by replacing `json` with one of those in the URL.
 
@@ -108,6 +108,7 @@ puts response.read_body
 	"headers":
     [{
   		"name": "ua_inf_annual.cpi",
+		"territory":"Ukraine",
   		"english": "CPI Annual Inflation",
   		"units": "%",
   		"source": "Data Drum calculations based on State Statistics Service of Ukraine"
@@ -121,7 +122,7 @@ puts response.read_body
 
 `GET https://api.datadrum.com/json/<INDICATOR>/latest`
 
-This endpoint retrieves the latest value held by Data Drum for a particular indicator.
+This endpoint returns the latest value held by Data Drum for a particular indicator.
 
 Ukraine's annual inflation figure was just shy of 9% when this documentation was written in August 2018.
 
@@ -201,6 +202,7 @@ puts response.read_body
   "headers":
     [{
       "name":"ua_inf_annual.cpi",
+      "territory":"Ukraine",
       "english":"CPI Annual Inflation",
       "units":"%",
       "source":"Data Drum calculations based on State Statistics Service of Ukraine"
@@ -214,7 +216,7 @@ puts response.read_body
 
 `GET https://api.datadrum.com/json/<INDICATOR>/earliest`
 
-This endpoint retrieves the earliest value held by Data Drum.
+This endpoint returns the earliest value held by Data Drum.
 
 The earliest data we hold for Ukraine annual inflation is from January 2006 when the figure was 9.7%
 
@@ -294,6 +296,7 @@ puts response.read_body
   "headers":
     [{
       "name":"ua_inf_annual.cpi",
+      "territory":"Ukraine",
       "english":"CPI Annual Inflation",
       "units":"%",
       "source":"Data Drum calculations based on State Statistics Service of Ukraine"
@@ -307,9 +310,9 @@ puts response.read_body
 
 `GET https://api.datadrum.com/json/<INDICATOR>/<DATE>`
 
-This endpoint retried the value on an indicator on a specific date, which must be in the format `YYYY-MM-DD` or `earliest` or `latest`, which return the earliest or latest value held by Data Drum respectively.
+This endpoint returns the value of an indicator on a specific date, which must be in the format `YYYY-MM-DD` or `earliest` or `latest`.
 
-If no value is held for the date you specify, the date with a value previous to the date you specify is chosen.
+If no value is held for the date you specify, the latest value before the date you specify will be used.
 
 Annual inflation in Ukraine was at more than 60% in April 2015.
 
@@ -389,7 +392,8 @@ puts response.read_body
   "headers":
     [{
       "name":"ua_inf_annual.cpi",
-      "english":"CPI Annual Inflation",
+      "territory":"Ukraine",
+      "english":"CPI Annual ",
       "units":"%",
       "source":"Data Drum calculations based on State Statistics Service of Ukraine"
     }],
@@ -406,7 +410,7 @@ puts response.read_body
 
 `GET https://api.datadrum.com/json/<INDICATOR>`
 
-This endpoint retrieves all values held by Data Drum for a particular indicator, and is equivalent to:
+This endpoint returns all values held by Data Drum for a particular indicator, and is equivalent to:
 
 `GET https://api.datadrum.com/json/<INDICATOR>/earliest/latest`
 
@@ -486,6 +490,7 @@ puts response.read_body
   "headers":
     [{
       "name":"ua_inf_annual.cpi",
+      "territory":"Ukraine",
       "english":"CPI Annual Inflation",
       "units":"%",
       "source":"Data Drum calculations based on State Statistics Service of Ukraine"
@@ -502,11 +507,11 @@ puts response.read_body
 
 `GET https://api.datadrum.com/json/<INDICATOR>/<DATE>/<DATE>`
 
-This endpoint retrieves a range of values between the two dates in the format `YYYY-MM-DD` or `earliest` or `latest`.
+This endpoint returns a range of values between the two dates in the format `YYYY-MM-DD` or `earliest` or `latest`.
 
 Annual inflation in Ukraine hovered around 23.5% in the last months of 2008.
 
-# Multiple Indicators
+## Multiple Indicators
 
 ```php
 <?php
@@ -583,12 +588,14 @@ puts response.read_body
     [
       {
         "name":"mx_cpi_headline_annual.val",
+		"territory":"Mexico",
         "english":"CPI Monthly Inflation (Headline)",
         "units":"%",
         "source":"Data Drum calculations based on Bank of Mexico"
       },
       {
         "name":"ua_inf_annual.cpi",
+		"territory":"Ukraine",
         "english":"CPI Annual Inflation",
         "units":"%",
         "source":"Data Drum calculations based on State Statistics Service of Ukraine"
@@ -611,3 +618,98 @@ This endpoint does everything above but for two (or more) indicators. You can ke
 The example on the right compared Ukraine's annual inflation with that in Mexico with the indicator `mx_cpi_headline_annual.val`
 
 Annual inflation in Mexico was around five times lower than that in Ukraine towards the end of 2008.
+
+# Available Indicators
+
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/all_indicators/ua,mx/",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/all_indicators/ua,mx/", headers={"token": your_token})
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/all_indicators/ua,mx/"
+  -H "token: your_token"
+```
+
+```javascript
+var request = new Request("https://api.datadrum.com/json/all_indicators/ua,mx/", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/all_indicators/ua,mx/")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
+```
+
+> The above code would return the following JSON output:
+
+```json
+{
+	"status": 200,
+	"error": null,
+	"headers": null,
+	"data": [{
+		"name": "mx_cpi_core.val",
+		"territory":"Mexico",
+		"english": "Consumer Price Index (Core)",
+		"units": "Dec 2010 = 100",
+		"source": "Bank of Mexico"
+	}, {
+		"name": "ua_fdi.monaco",
+		"territory":"Ukraine",
+		"english": "Foreign Direct Investment (Monaco)",
+		"units": "million USD",
+		"source": "State Statistics Service of Ukraine"
+	}
+    ...]
+}
+```
+
+`GET https://api.datadrum.com/json/all_indicators/<COUNTRY_CODE_1>,<COUNTRY_CODE_2>,.../`
+
+This endpoint returns all indicators available at Data Drum with the optional ability to limit by country, using <a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166-2</a> two-letter country codes separated by commas.
