@@ -10,7 +10,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
   - <a href='mailto:info@datadrum.com'>Support</a>
-  - <a href="/">Back to Data Drum</a>
+  - <a href="https://datadrum.com">Back to Data Drum</a>
 
 includes:
   - errors
