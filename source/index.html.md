@@ -621,6 +621,8 @@ Annual inflation in Mexico was around five times lower than that in Ukraine towa
 
 # Available Indicators
 
+## All/By Country
+
 ```php
 <?php
 $curl = curl_init();
@@ -713,3 +715,98 @@ puts response.read_body
 `GET https://api.datadrum.com/json/all_indicators/<COUNTRY_CODE_1>,<COUNTRY_CODE_2>,.../`
 
 This endpoint returns all indicators available at Data Drum with the optional ability to limit by country, using <a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166-2</a> two-letter country codes separated by commas.
+
+## Search
+
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/search/ukraine,inflation/",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "token: ".your_token
+  ),
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/search/ukraine,inflation/", headers={"token": your_token})
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/search/ukraine,inflation/"
+  -H "token: your_token"
+```
+
+```javascript
+var request = new Request("https://api.datadrum.com/json/search/ukraine,inflation/", {
+	method: 'GET',
+	headers: new Headers({
+		'token': your_token
+	})
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/search/ukraine,inflation/")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request['token'] = your_token
+
+response = http.request(request)
+puts response.read_body
+```
+
+> The above code would return the following JSON output:
+
+```json
+{ NEEDS CHANGING!
+	"status": 200,
+	"error": null,
+	"headers": null,
+	"data": [{
+		"name": "mx_cpi_core.val",
+		"territory":"Mexico",
+		"english": "Consumer Price Index (Core)",
+		"units": "Dec 2010 = 100",
+		"source": "Bank of Mexico"
+	}, {
+		"name": "ua_fdi.monaco",
+		"territory":"Ukraine",
+		"english": "Foreign Direct Investment (Monaco)",
+		"units": "million USD",
+		"source": "State Statistics Service of Ukraine"
+	}
+    ...]
+}
+```
+
+`GET https://api.datadrum.com/json/search/<SEARCH_TERM_1>,<SEARCH_TERM_2>,.../`
+
+This endpoint searches all indicators that match the query, with search terms separated by commas.
