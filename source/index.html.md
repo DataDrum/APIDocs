@@ -631,10 +631,7 @@ curl_setopt_array($curl, array(
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "token: ".your_token
-  ),
+  CURLOPT_CUSTOMREQUEST => "GET"
 ));
 $response = curl_exec($curl);
 curl_close($curl);
@@ -648,7 +645,7 @@ var_dump($json_response);
 import requests
 import json
 
-req = requests.get("https://api.datadrum.com/json/all_indicators/ua,mx/", headers={"token": your_token})
+req = requests.get("https://api.datadrum.com/json/all_indicators/ua,mx/")
 print(json.loads(req.text))
 ```
 
@@ -659,10 +656,7 @@ curl "https://api.datadrum.com/json/all_indicators/ua,mx/"
 
 ```javascript
 var request = new Request("https://api.datadrum.com/json/all_indicators/ua,mx/", {
-	method: 'GET',
-	headers: new Headers({
-		'token': your_token
-	})
+	method: 'GET'
 })
 
 fetch(request)
@@ -682,7 +676,6 @@ http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
 
 request = Net::HTTP::Get.new(url)
-request['token'] = your_token
 
 response = http.request(request)
 puts response.read_body
@@ -726,10 +719,7 @@ curl_setopt_array($curl, array(
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "token: ".your_token
-  ),
+  CURLOPT_CUSTOMREQUEST => "GET"
 ));
 $response = curl_exec($curl);
 curl_close($curl);
@@ -743,21 +733,17 @@ var_dump($json_response);
 import requests
 import json
 
-req = requests.get("https://api.datadrum.com/json/search/ukraine,inflation/", headers={"token": your_token})
+req = requests.get("https://api.datadrum.com/json/search/ukraine,inflation/")
 print(json.loads(req.text))
 ```
 
 ```shell
 curl "https://api.datadrum.com/json/search/ukraine,inflation/"
-  -H "token: your_token"
 ```
 
 ```javascript
 var request = new Request("https://api.datadrum.com/json/search/ukraine,inflation/", {
-	method: 'GET',
-	headers: new Headers({
-		'token': your_token
-	})
+	method: 'GET'
 })
 
 fetch(request)
@@ -777,7 +763,6 @@ http = Net::HTTP.new(url.host, url.port)
 http.use_ssl = true
 
 request = Net::HTTP::Get.new(url)
-request['token'] = your_token
 
 response = http.request(request)
 puts response.read_body
