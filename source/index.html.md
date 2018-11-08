@@ -771,21 +771,23 @@ puts response.read_body
 > The above code would return the following JSON output:
 
 ```json
-{ NEEDS CHANGING!
+{
 	"status": 200,
 	"error": null,
 	"headers": null,
 	"data": [{
-		"name": "mx_cpi_core.val",
-		"territory":"Mexico",
-		"english": "Consumer Price Index (Core)",
-		"units": "Dec 2010 = 100",
-		"source": "Bank of Mexico"
+		"name": "ua_inf_annual.cpi",
+		"territory": "Ukraine",
+		"english": "CPI Annual Inflation (Headline)",
+		"units": "%",
+		"decimals": 2,
+		"source": "State Statistics Service of Ukraine"
 	}, {
-		"name": "ua_fdi.monaco",
-		"territory":"Ukraine",
-		"english": "Foreign Direct Investment (Monaco)",
-		"units": "million USD",
+		"name": "ua_inf_annual.alc_tobacco",
+		"territory": "Ukraine",
+		"english": "CPI Annual Inflation (Alcohol, Tobacco)",
+		"units": "%",
+		"decimals": 2,
 		"source": "State Statistics Service of Ukraine"
 	}
     ...]
