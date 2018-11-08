@@ -30,7 +30,7 @@ A list of indicators is available <a href="#available-indicators">through the AP
 
 And output will be in JSON. You can easily change this to CSV (`csv`), XML (`xml`) or Excel (`xlsx`) by replacing `json` with one of those in the URL.
 
-# Basic Data Retrieval
+# Data Retrieval
 
 ## Latest Value
 
