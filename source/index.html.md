@@ -20,13 +20,13 @@ search: false
 
 # Introduction
 
-Welcome to Data Drum's elegant and easy-to-use API. It's really easy to get going. All you need is an API Key and the ability to send that key in the headers of a GET request to:
+Welcome to Data Drum's API. It's very easy to get going. All you need is an API Key and the ability to send that key in the headers of a GET request to:
 
 `https://api.datadrum.com/...`
 
 You can get access to any data you like by following the instructions below.
 
-A list of indicators is available <a href="#available-indicators">through the API</a> (with no authentication required) or within the Data Drum platform itself. The examples to the right will be getting data on Ukraine annual inflation, using the indicator identifier `ua_inf_annual.cpi`.
+A full list of indicators is available <a href="#available-indicators">through the API</a> (with no authentication required) or within the Data Drum website. The examples to the right will be getting data on Ukraine annual inflation, using the indicator identifier `ua_inf_annual.cpi`.
 
 And output will be in JSON. You can easily change this to CSV (`csv`), XML (`xml`) or Excel (`xlsx`) by replacing `json` with one of those in the URL.
 
@@ -615,7 +615,7 @@ puts response.read_body
 
 This endpoint does everything above but for two (or more) indicators. You can keep going with many more as long as they're separated by commas.
 
-The example on the right compared Ukraine's annual inflation with that in Mexico with the indicator `mx_cpi_headline_annual.val`
+The example on the right compares Ukraine's annual inflation with that in Mexico with the indicator `mx_cpi_headline_annual.val`
 
 Annual inflation in Mexico was around five times lower than that in Ukraine towards the end of 2008.
 
@@ -708,6 +708,10 @@ puts response.read_body
 `GET https://api.datadrum.com/json/all_indicators/<COUNTRY_CODE_1>,<COUNTRY_CODE_2>,.../`
 
 This endpoint returns all indicators available at Data Drum with the optional ability to limit by country, using <a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166-2</a> two-letter country codes separated by commas.
+
+<a href="https://api.datadrum.com/xlsx/all_indicators/">Click here for an Excel file containing all indicators.</a> This is created with the following public endpoint:
+
+`GET https://api.datadrum.com/xlsx/all_indicators/`
 
 ## Search
 
