@@ -7,6 +7,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - python
   - javascript
   - ruby
+  - R
 
 toc_footers:
   - <a href='mailto:info@datadrum.com'>Support</a>
@@ -97,6 +98,17 @@ request['token'] = your_token
 
 response = http.request(request)
 puts response.read_body
+```
+
+```R
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/ua_inf_annual.cpi/latest"
+httpResponse <- GET(url, add_headers("token"=your_token), accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
 ```
 
 > The above code would return the following JSON output:
@@ -193,6 +205,17 @@ response = http.request(request)
 puts response.read_body
 ```
 
+```R
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/ua_inf_annual.cpi/earliest"
+httpResponse <- GET(url, add_headers("token"=your_token), accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
+```
+
 > The above code would return the following JSON output:
 
 ```json
@@ -285,6 +308,17 @@ request['token'] = your_token
 
 response = http.request(request)
 puts response.read_body
+```
+
+```R
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/ua_inf_annual.cpi/2015-04-30"
+httpResponse <- GET(url, add_headers("token"=your_token), accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
 ```
 
 > The above code would return the following JSON output:
@@ -382,6 +416,19 @@ request['token'] = your_token
 response = http.request(request)
 puts response.read_body
 ```
+
+```r
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/ua_inf_annual.cpi"
+httpResponse <- GET(url, add_headers("token"=your_token), accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
+```
+
+
 
 > The above code would return the following JSON output:
 
@@ -481,6 +528,17 @@ response = http.request(request)
 puts response.read_body
 ```
 
+```r
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/ua_inf_annual.cpi/2008-08-01/2008-12-01"
+httpResponse <- GET(url, add_headers("token"=your_token), accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
+```
+
 > The above code would return the following JSON output:
 
 ```json
@@ -576,6 +634,17 @@ request['token'] = your_token
 
 response = http.request(request)
 puts response.read_body
+```
+
+```r
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/ua_inf_annual.cpi,mx_cpi_headline_annual.val/2008-08-01/2008-12-01"
+httpResponse <- GET(url, add_headers("token"=your_token), accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
 ```
 
 > The above code would return the following JSON output:
@@ -681,6 +750,17 @@ response = http.request(request)
 puts response.read_body
 ```
 
+```r
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/all_indicators/ua,mx/"
+httpResponse <- GET(url, add_headers("token"=your_token), accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
+```
+
 > The above code would return the following JSON output:
 
 ```json
@@ -770,6 +850,17 @@ request = Net::HTTP::Get.new(url)
 
 response = http.request(request)
 puts response.read_body
+```
+
+```r
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/search/ukraine,inflation/"
+httpResponse <- GET(url, add_headers("token"=your_token), accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
 ```
 
 > The above code would return the following JSON output:
