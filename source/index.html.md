@@ -688,6 +688,103 @@ The example on the right compares Ukraine's annual inflation with that in Mexico
 
 Annual inflation in Mexico was around five times lower than that in Ukraine towards the end of 2008.
 
+## Countries
+
+```php
+<?php
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.datadrum.com/json/countries/ve,lb",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+));
+$response = curl_exec($curl);
+curl_close($curl);
+
+$json_response = json_decode($response, true);
+var_dump($json_response);
+?>
+```
+
+```python
+import requests
+import json
+
+req = requests.get("https://api.datadrum.com/json/countries/ve,lb")
+print(json.loads(req.text))
+```
+
+```shell
+curl "https://api.datadrum.com/json/countries/ve,lb"
+```
+
+```javascript
+var request = new Request(https://api.datadrum.com/json/countries/ve", {
+	method: 'GET',
+})
+
+fetch(request)
+	.then((response) => response.json())
+	.then(function(json_response){
+		console.log(json_response)
+	});
+```
+
+```ruby
+require 'uri'
+require 'net/http'
+
+url = URI("https://api.datadrum.com/json/countries/ve,lb")
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+
+response = http.request(request)
+puts response.read_body
+```
+
+```r
+library(httr)
+library(jsonlite)
+
+url = "https://api.datadrum.com/json/countries/ve,lb"
+httpResponse <- GET(url, accept_json())
+raw_data <- fromJSON(content(httpResponse, "text"))
+
+print(raw_data)
+```
+
+> The above code would return the following JSON output:
+
+```json
+{
+    "status": 200,
+    "error": null,
+    "headers": null,
+    "data": [
+        {
+            "id": "LB",
+            "name": "Lebanon"
+        },
+        {
+            "id": "VE",
+            "name": "Venezuela"
+        }
+    ]
+}
+```
+
+`GET https://api.datadrum.com/json/countries/<COUNTRY_1>,<COUNTRY_2>,.../`
+
+This endpoint returns the full country names corresponding to the country codes passed in. For instance, passing in "ve"
+will result in "Venezuela". This endpoint does not require an API key.
+
+The example on the right returns the full country names for "ve" and "lb".
+
 # Available Indicators
 
 ## All/By Country
