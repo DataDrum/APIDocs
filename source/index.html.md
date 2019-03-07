@@ -7,7 +7,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - python
   - javascript
   - ruby
-  - R
+  - r
 
 toc_footers:
   - <a href='mailto:support@datadrum.com'>Support</a>
@@ -100,7 +100,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-```R
+```r
 library(httr)
 library(jsonlite)
 
@@ -205,7 +205,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-```R
+```r
 library(httr)
 library(jsonlite)
 
@@ -310,7 +310,7 @@ response = http.request(request)
 puts response.read_body
 ```
 
-```R
+```r
 library(httr)
 library(jsonlite)
 
